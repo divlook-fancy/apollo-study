@@ -1,7 +1,16 @@
-import { ApolloServer } from 'apollo-server'
-import { useBook } from '~/book'
+import { ApolloServer, Config } from 'apollo-server'
+import { bookConfig } from '~/book'
 
-const server = new ApolloServer(useBook())
+const typeDefs = [bookConfig.typeDef]
+
+const resolvers = [bookConfig.resolver]
+
+const apolloConfig: Config = {
+    typeDefs,
+    resolvers,
+}
+
+const server = new ApolloServer(apolloConfig)
 
 server.listen().then(({ url }) => {
     console.log(`🚀  Server ready at ${url}`)
